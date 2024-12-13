@@ -1,0 +1,81 @@
+import csv
+def menu():
+    while True:
+        print("Opciones del Menú:")
+        print("1. Leer archivo")
+        print("2. Buscar un producto")
+        print("3. Ordenar el inventario")
+        print("4. Listar inventario")
+        print("5. Actualizar el inventario")
+        print("6. Escribir un archivo")
+        print("7. Salir")
+
+        opcion = input("Elige una opción: ")
+        if opcion == "1":
+            print("opcion 1")
+            leer_archivo()
+        elif opcion == "2":
+            print("opcion 2")
+            buscar_producto(inventario)
+        elif opcion == "3":
+            print("opcion 3")
+           # cantidad_por_color_ojos(lista_personajes)
+        elif opcion == "4":
+            print("opcion 4")
+            #listar_por_color_pelo(lista_personajes)
+        elif opcion == "5":
+            print("opcion 5")
+           # listar_por_inteligencia(lista_personajes)
+        elif opcion == "6":
+            print("opcion 6")
+           # listar_promedio(lista_personajes)
+        elif opcion == "7":
+            break
+        else:
+            print("Opción no válida. Intenta de nuevo.")
+
+
+#menu()
+def leer_archivo():
+    inventario = []
+    ruta="inventario.csv"
+    with open(ruta, 'r') as archivo:
+        for mercaderia in archivo:
+            datos = mercaderia.strip().split(",")
+            if datos[0] != 'Nombre':  
+                datos[1] = float (datos[1])
+                datos[2] = int(datos[2])    
+                inventario.append(datos)
+
+    return inventario
+inventario=leer_archivo()
+#print(inventario)
+
+def buscar_producto(inventario):
+    cont_produ = 0
+    producto = input("Ingrese el producto que desea buscar: ")
+    for producto_en_inventario in inventario:
+        if producto_en_inventario[0] == producto:
+            print(producto, producto_en_inventario)
+            cont_produ += 1
+    if cont_produ == 0:
+        print("Este producto no se encuentra disponible.")
+
+#buscar_producto(inventario)
+def intercambiar(lista, posicion1, posicion2):
+    aux = lista[posicion1]
+    lista[posicion1] = lista[posicion2]
+    lista[posicion2] = aux
+
+def ordenamiento_de_productos(lista, clave, orden):
+    for i in range(len(lista) - 1):
+        for j in range(i + 1, len(lista)):
+            if orden == 1:
+                if lista[i][clave] > lista[j][clave]:
+                    intercambiar(lista, i, j)
+            elif orden == -1:
+                if lista[i][clave] < lista[j][clave]:
+                    intercambiar(lista, i, j)
+
+ordenado = ordenamiento_de_productos(inventario, 1, 1)
+print(ordenado)
